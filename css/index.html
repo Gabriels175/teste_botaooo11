@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interação do Coração</title>
+    <style>
+        /* Estilo do container principal */
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Estilo das perguntas */
+        .pergunta {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        /* Estilo do botão */
+        .botao {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Estilo para o botão de sucesso */
+        .sucesso {
+            background-color: #ff007f;
+            color: white;
+        }
+
+        /* Estilo para o emoji e mensagens */
+        .emoji {
+            font-size: 50px;
+            margin-top: 20px;
+        }
+
+        .mensagem {
+            font-size: 20px;
+            margin-top: 15px;
+        }
+
+        /* Estilo para a linha de carregamento */
+        .loading-bar-container {
+            position: relative;
+            margin-top: 20px;
+            width: 80%;
+            height: 15px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            position: absolute;
+            width: 0;
+            height: 100%;
+            background-color: #ff007f;
+            border-radius: 10px;
+        }
+
+        .heart {
+            position: absolute;
+            top: -30px;
+            font-size: 25px;
+            animation: heartAnimation 1s infinite;
+        }
+
+        @keyframes heartAnimation {
+            0% { top: -30px; opacity: 1; }
+            50% { top: -50px; opacity: 0.5; }
+            100% { top: -30px; opacity: 1; }
+        }
+
+        /* Estilo da mensagem de carregamento */
+        .loading-message {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #ff007f;
+        }
+
+        /* Esconde o segundo botão de erro inicialmente */
+        #botaoDescarregarDiv {
+            display: none;
+        }
+
+        /* Estilo para o erro */
+        .erro-mensagem {
+            color: red;
+            font-size: 20px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Pergunta inicial -->
+        <div class="pergunta">Sabe o que acontece quando você aparece pelo menos um pouquinho no meu dia?</div>
+
+        <!-- Botão para "descobrir" -->
+        <button class="botao sucesso" id="botaoCarregar" onclick="iniciarCarregamento()">Clique aqui para descobrir</button>
+
+        <!-- Linha de carregamento com corações -->
+        <div class="loading-bar-container">
+            <div id="loadingBar" class="loading-bar"></div>
+            <div id="heart" class="heart">❤️</div>
+        </div>
+
+        <!-- Mensagem de carregamento -->
+        <div id="loadingMessage" class="loading-message"></div>
+
+        <!-- Área para exibir o emoji e a mensagem -->
+        <div id="emoji" class="emoji"></div>
+        <div id="mensagem" class="mensagem"></div>
+
+        <!-- Botão de erro (inicialmente escondido) -->
+        <div id="botaoDescarregarDiv">
+            <button class="botao sucesso" onclick="mostrarMensagemErro()">E meu dia sem você fica assim...</button>
+        </div>
+
+        <!-- Área de erro -->
+        <div id="erroMensagem" class="erro-mensagem"></div>
+    </div>
+
+    <script>
+        function iniciarCarregamento() {
+            let progress = 0;
+            let loadingMessage = "Está demorando para carregar pois o amor que eu sinto por você é muito forte...";
+
+            document.getElementById('loadingMessage').innerText = loadingMessage;
+
+            let loadingInterval = setInterval(function() {
+                progress += 1;
+                document.getElementById('loadingBar').style.width = progress + '%';
+
+                if (progress === 100) {
+                    clearInterval(loadingInterval);
+                    mostrarMensagemSucesso();  // Exibe a mensagem de sucesso ao completar o carregamento
+                }
+            }, 100);  // A cada 100ms, o progresso aumenta 1%, o que torna o carregamento mais lento
+        }
+
+        function mostrarMensagemSucesso() {
+            // Exibe a mensagem de sucesso
+            document.getElementById('emoji').innerHTML = '❤️😊';
+            document.getElementById('mensagem').innerHTML = 'Meu dia fica completo com você!';
+
+            // Esconde o botão de carregar
+            document.getElementById('botaoCarregar').style.display = 'none';
+
+            // Exibe o segundo botão de erro
+            document.getElementById('botaoDescarregarDiv').style.display = 'block';
+        }
+
+        function mostrarMensagemErro() {
+            // Exibe a mensagem de erro
+            document.getElementById('erroMensagem').innerHTML = 'Erro ao carregar... Meu dia sem você fica vazio!';
+
+            // Esconde o botão de erro após exibir a mensagem
+            document.getElementById('botaoDescarregarDiv').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
